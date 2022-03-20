@@ -1,0 +1,5 @@
+build-*
+*.pro.user
+.idea
+*.qmlc
+.DS_Store
