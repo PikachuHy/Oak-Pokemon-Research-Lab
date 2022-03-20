@@ -1,0 +1,6 @@
+/.vs
+/x64
+/GeneratedFiles
+/*.vcxproj
+/*.vcxproj.*
+*.user
