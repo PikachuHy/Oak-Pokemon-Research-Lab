@@ -1,5 +1,15 @@
 #include "toolbar.h"
 #include <QtWidgets>
+auto create_btn(QString path) {
+    auto btn = new QPushButton();
+    btn->setFixedSize(50, 50);
+    btn->setIconSize(QSize(25, 25));
+    btn->setFlat(true);
+    btn->setCursor(Qt::PointingHandCursor);
+    btn->setIcon(QIcon(path));
+    btn->setFocusPolicy(Qt::NoFocus);
+    return btn;
+}
 Toolbar::Toolbar(QWidget *parent) : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
@@ -9,28 +19,13 @@ Toolbar::Toolbar(QWidget *parent) : QWidget(parent)
     iconLabel->setPixmap(QPixmap(":/images/logo32.png"));
 
     layout->addWidget(iconLabel);
-    auto settingsBtn = new QPushButton();
-    settingsBtn->setFixedSize(32, 32);
-    settingsBtn->setFlat(true);
-    settingsBtn->setCursor(Qt::PointingHandCursor);
-    settingsBtn->setIcon(QIcon(":/icon/settings.png"));
-    settingsBtn->setFocusPolicy(Qt::NoFocus);
+    auto settingsBtn = create_btn(":/icon/icons8-settings-50.png");
+    auto resetBtn = create_btn(":/icon/icons8-reset-50.png");
+    auto articleBtn = create_btn(":/icon/icons8-document-50.png");
     layout->addWidget(settingsBtn);
-    auto resetBtn = new QPushButton();
-    resetBtn->setFixedSize(32, 32);
-    resetBtn->setFlat(true);
-    resetBtn->setCursor(Qt::PointingHandCursor);
-    resetBtn->setIcon(QIcon(":/icon/reset.png"));
-    resetBtn->setFocusPolicy(Qt::NoFocus);
     layout->addWidget(resetBtn);
-    auto articleBtn = new QPushButton();
-    articleBtn->setFixedSize(32, 32);
-    articleBtn->setFlat(true);
-    articleBtn->setCursor(Qt::PointingHandCursor);
-    articleBtn->setIcon(QIcon(":/icon/article.png"));
-    articleBtn->setFocusPolicy(Qt::NoFocus);
-    layout->setSpacing(0);
     layout->addWidget(articleBtn);
+
     layout->addStretch(1);
     layout->addWidget(new QLabel(tr("Krabby")));
     layout->addStretch(1);

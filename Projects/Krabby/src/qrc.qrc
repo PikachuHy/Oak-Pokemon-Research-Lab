@@ -22,5 +22,8 @@
         <file>article/Speech/美国总统（富兰克林-罗斯福）就职演说 First Inaugural Address.txt</file>
         <file>article/Speech/I Have a Dream.txt</file>
         <file>icon/settings.png</file>
+        <file>icon/icons8-document-50.png</file>
+        <file>icon/icons8-reset-50.png</file>
+        <file>icon/icons8-settings-50.png</file>
     </qresource>
 </RCC>
