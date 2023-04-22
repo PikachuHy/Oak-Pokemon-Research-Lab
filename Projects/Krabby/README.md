@@ -21,7 +21,7 @@
 
 ![Krabby v2.0.0 MacOS](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_macos_screenshot.png)
 
-![Krabby v2.0.0 WASM](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_macos_screenshot.png)
+![Krabby v2.0.0 WASM](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_wasm_screenshot.png)
 
 - 支持MacOS，移除对DTK的依赖
 - 支持键盘提示
