@@ -6,6 +6,8 @@
 #include "bottom.h"
 #include "toolbar.h"
 #include <QtWidgets>
+#include <chrono>
+using namespace std::chrono_literals;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -14,8 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_chooseArticleDialog = new ChooseArticleDialog();
     QVBoxLayout *mainLayout = new QVBoxLayout();
     mainLayout->setSpacing(0);
+    setAutoFillBackground(true);
     auto toolbar = new Toolbar();
-    toolbar->setFixedHeight(50);
+    toolbar->setFixedHeight(60);
     connect(toolbar, &Toolbar::openSettings, this, [this](){
         SettingDialog dialog;
         dialog.exec();
@@ -45,6 +48,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_typeWidget, &TypeWidget::requestHighlightKey, m_keyboardWidget, &KeyboardWidget::highlight);
 
     connect(m_chooseArticleDialog, &ChooseArticleDialog::chooseArticle, m_typeWidget, &TypeWidget::resetText);
+
+    QTimer::singleShot(100ms, this, [this](){
+        auto sz = QApplication::primaryScreen()->availableSize();
+        auto win_sz = this->size();
+        auto x = (sz.width() - win_sz.width()) / 2;
+        auto y = (sz.height() - win_sz.height()) / 2;
+        this->move(x, y);
+    });
 }
 
 MainWindow::~MainWindow()

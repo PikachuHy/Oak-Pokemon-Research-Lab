@@ -269,6 +269,10 @@ void TypeWidget::resetInternal()
     emit updateAccuracy(100);
     emit updateSpeed(0);
     m_pageNum = 0;
+    if (m_pageText.empty()) {
+        QMessageBox::critical(this, tr("Krabby"), tr("Document Error!!!\nNo Content."));
+        return ;
+    }
     m_text = m_pageText[m_pageNum];
     if (m_finish) {
         m_finish = false;
