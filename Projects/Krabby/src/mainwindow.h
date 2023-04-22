@@ -5,6 +5,7 @@
 
 class TypeWidget;
 class ChooseArticleDialog;
+class KeyboardWidget;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -19,6 +20,7 @@ protected:
 private:
     TypeWidget* m_typeWidget;
     ChooseArticleDialog* m_chooseArticleDialog;
+    KeyboardWidget* m_keyboardWidget;
 };
 
 #endif // MAINWINDOW_H

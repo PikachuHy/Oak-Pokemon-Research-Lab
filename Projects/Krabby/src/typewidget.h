@@ -28,6 +28,7 @@ signals:
     void updateSpeed(int speed);
     void updateProgress(int progress);
     void updateAccuracy(int accuracy);
+    void requestHighlightKey(char ch);
 private:
     void drawWrongChar(QPainter &painter, int x, int y, int w, QString targetCh, QString inputCh);
     void drawCorrectChar(QPainter &painter, int x, int y, int w, QString chStr);
@@ -40,6 +41,7 @@ private:
     void resetInternal();
     QString formatTime();
     QString prehanlde(QString text);
+    void requestHighlightCurrentKey();
 private slots:
     void finishTest();
 private:

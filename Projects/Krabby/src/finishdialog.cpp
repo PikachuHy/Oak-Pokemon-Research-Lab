@@ -6,7 +6,7 @@ FinishDialog::FinishDialog(int score, QString time, int words, int speed, int ac
     ui(new Ui::FinishDialog)
 {
     ui->setupUi(this);
-    ui->labelScore->setText(tr("%1 w/m").arg(score));
+    ui->labelScore->setText(tr("%1").arg(score));
     ui->labelTime->setText(time);
     ui->labelWords->setText(tr("%1 w").arg(words));
     ui->labelSpeed->setText(tr("%1 w/m").arg(speed));

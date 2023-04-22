@@ -5,6 +5,8 @@
 #include <QtWidgets>
 #include <QMediaPlayer>
 #include <QSoundEffect>
+#include <chrono>
+using namespace std::chrono_literals;
 int TIME_INTERVAL = 1000;
 
 TypeWidget::TypeWidget(QWidget *parent)
@@ -113,6 +115,7 @@ void TypeWidget::keyReleaseEvent(QKeyEvent *event)
         if (m_inputTotal > 0) {
             m_inputTotal --;
         }
+        requestHighlightCurrentKey();
         break;
     case Qt::Key_Escape:
         qDebug() << "ESC";
@@ -131,6 +134,7 @@ void TypeWidget::keyReleaseEvent(QKeyEvent *event)
             emit updateProgress(progress);
             emit updateSpeed(calSpeed());
             nextPageJudge();
+            requestHighlightCurrentKey();
         }
         break;
     }
@@ -155,7 +159,10 @@ void TypeWidget::resetText(QString text)
         int len = m_eachPageLineCount * m_eachLineCharCount;
         m_pageText.append(text.mid(index, len));
     }
-    resetInternal();
+    QTimer::singleShot(100ms, this, [this](){
+        resetInternal();
+    });
+
 }
 
 void TypeWidget::pause()
@@ -249,7 +256,7 @@ int TypeWidget::calSpeed()
     if (m_time == 0) {
         return 0;
     }
-    return 1.0 * m_inputTotal / m_time * 4 * 60;
+    return 1.0 * m_inputTotal / m_time * 60;
 }
 
 void TypeWidget::resetInternal()
@@ -268,6 +275,7 @@ void TypeWidget::resetInternal()
         m_start = false;
         m_timer->start();
     }
+    requestHighlightCurrentKey();
     update();
     setFocus();
 }
@@ -283,6 +291,15 @@ QString TypeWidget::prehanlde(QString text)
     text = text.replace(":\n", ":");
     text = text.replace("\n", ". ");
     return text;
+}
+
+void TypeWidget::requestHighlightCurrentKey()
+{
+    if (m_input.size() < m_text.size()) {
+        auto qt_ch = m_text.at(m_input.size());
+        auto ch = qt_ch.toLatin1();
+        emit requestHighlightKey(ch);
+    }
 }
 
 void TypeWidget::finishTest()

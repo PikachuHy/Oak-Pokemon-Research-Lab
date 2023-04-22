@@ -47,3 +47,5 @@ CMakeLists.txt.user*
 cmake-build-*
 build
 .cache
+*.icns
+test.txt

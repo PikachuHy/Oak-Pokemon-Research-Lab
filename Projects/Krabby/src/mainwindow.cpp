@@ -2,6 +2,7 @@
 #include "typewidget.h"
 #include "choosearticledialog.h"
 #include "settingdialog.h"
+#include "keyboardwidget.h"
 #include "bottom.h"
 #include "toolbar.h"
 #include <QtWidgets>
@@ -9,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     m_typeWidget = new TypeWidget();
+    m_keyboardWidget = new KeyboardWidget();
     m_chooseArticleDialog = new ChooseArticleDialog();
     QVBoxLayout *mainLayout = new QVBoxLayout();
     mainLayout->setSpacing(0);
@@ -24,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
  
     mainLayout->addWidget(toolbar);
     mainLayout->addWidget(m_typeWidget);
+    auto hbox = new QHBoxLayout();
+    hbox->addStretch(1);
+    hbox->addWidget(m_keyboardWidget);
+    hbox->addStretch(1);
+    mainLayout->addLayout(hbox);
     auto bottom = new Bottom(this);
     mainLayout->addWidget(bottom);
 
@@ -35,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_typeWidget, &TypeWidget::updateAccuracy, bottom, &Bottom::updateAccuracy);
     connect(m_typeWidget, &TypeWidget::updateProgress, bottom, &Bottom::updateProgress);
     connect(m_typeWidget, &TypeWidget::updateSpeed, bottom, &Bottom::updateSpeed);
+    connect(m_typeWidget, &TypeWidget::requestHighlightKey, m_keyboardWidget, &KeyboardWidget::highlight);
 
     connect(m_chooseArticleDialog, &ChooseArticleDialog::chooseArticle, m_typeWidget, &TypeWidget::resetText);
 }
