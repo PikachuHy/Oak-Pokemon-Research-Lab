@@ -65,6 +65,7 @@ private:
     QSoundEffect *m_typeSoundEffect;
     QTimer *m_timer;
     Setting *m_setting;
+    QString m_articleFont;
 };
 
 #endif // WIDGET_H

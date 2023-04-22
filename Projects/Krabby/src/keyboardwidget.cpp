@@ -2,6 +2,7 @@
 #include <QtWidgets>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QFontDatabase>
 const static int KEY_HEIGHT = 64;
 const char* KEY_TAB = "<tab>";
 const char* KEY_BACKSPACE = "<backspace>";
@@ -15,9 +16,19 @@ const char* KEY_OPTION = "<option>";
 const char* KEY_COMMAND = "<command>";
 const char* KEY_RIGHT_COMMAND = "<right-command>";
 const char* KEY_RIGHT_OPTION = "<right-option>";
+const char* DEFAULT_KEYBOARD_FONT = "American Typewriter";
 KeyboardWidget::KeyboardWidget(QWidget *parent)
     : QWidget{parent}
 {
+    if (QFontDatabase::hasFamily(DEFAULT_KEYBOARD_FONT)) {
+        m_keyboardFont = DEFAULT_KEYBOARD_FONT;
+        qDebug() << "use default font:" << m_keyboardFont;
+    }
+    else {
+        auto font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
+        m_keyboardFont = font.family();
+        qDebug() << "use system font:" << m_keyboardFont;
+    }
     initKeyboard();
     setFixedSize(keyboard_width, keyboard_height);
 }
@@ -206,7 +217,7 @@ void KeyboardWidget::drawChar(QPainter &painter, QRect rect, std::string ch)
     if (ch.size() == 1 && ch[0] != ' ') {
         auto font = painter.font();
         font.setPixelSize(KEY_HEIGHT - 10);
-        font.setFamily("American Typewriter");
+        font.setFamily(m_keyboardFont);
         painter.setFont(font);
         painter.drawText(rect, Qt::AlignCenter, QString::fromStdString(ch));
     }

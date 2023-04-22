@@ -5,10 +5,11 @@
 #include <QtWidgets>
 #include <QMediaPlayer>
 #include <QSoundEffect>
+#include <QFontDatabase>
 #include <chrono>
 using namespace std::chrono_literals;
 int TIME_INTERVAL = 1000;
-
+const char* DEFAULT_ARTICLE_FONT = "Courier New";
 TypeWidget::TypeWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -42,6 +43,15 @@ TypeWidget::TypeWidget(QWidget *parent)
     m_timer->setInterval(TIME_INTERVAL);
     m_timer->start();
     m_input = "";
+    if (QFontDatabase::hasFamily(DEFAULT_ARTICLE_FONT)) {
+        m_articleFont = DEFAULT_ARTICLE_FONT;
+        qDebug() << "use default font:" << m_articleFont;
+    }
+    else {
+        auto font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+        m_articleFont = font.family();
+        qDebug() << "use system font:" << m_articleFont;
+    }
     setFocus();
     QFile file(":/test.txt");
     file.open(QIODevice::ReadOnly);
@@ -62,7 +72,7 @@ void TypeWidget::paintEvent(QPaintEvent *event)
     painter.save();
     auto font = painter.font();
     font.setPixelSize(m_fontWidth);
-    font.setFamily("Courier New");
+    font.setFamily(m_articleFont);
     painter.setFont(font);
     QFontMetrics fontMetrics(font);
     int x = 0;

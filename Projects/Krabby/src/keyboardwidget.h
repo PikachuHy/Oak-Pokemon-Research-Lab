@@ -29,6 +29,7 @@ private:
     std::unordered_map<std::string, KeyButton> m_btnMap;
     int keyboard_width;
     int keyboard_height;
+    QString m_keyboardFont;
 };
 
 #endif // KEYBOARDWIDGET_H

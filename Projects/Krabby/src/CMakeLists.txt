@@ -11,12 +11,12 @@ file(GLOB_RECURSE HEADERS "*.h")
 file(GLOB_RECURSE FORMS "*.ui")
 file(GLOB_RECURSE RESOURCES "*.qrc")
 
-find_package(PkgConfig REQUIRED)
 set(QT Core Gui Widgets Multimedia)
 find_package(Qt6 REQUIRED ${QT})
-add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS} ${FORMS} ${RESOURCES})
-target_include_directories(${TARGET_NAME} PUBLIC ${3rd_lib_INCLUDE_DIRS} )
-target_link_libraries(${TARGET_NAME} ${3rd_lib_LIBRARIES} )
+qt_add_executable(krabby
+    MANUAL_FINALIZATION
+    ${SOURCES} ${HEADERS} ${FORMS} ${RESOURCES}
+)
 target_link_libraries(krabby PRIVATE Qt::Widgets Qt::Multimedia)
 
 set_target_properties(krabby PROPERTIES
@@ -27,3 +27,4 @@ set_target_properties(krabby PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+qt_finalize_executable(krabby)
