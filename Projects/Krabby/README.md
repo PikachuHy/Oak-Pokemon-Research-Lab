@@ -17,6 +17,16 @@
 
 栖息地
 沙滩的洞中。
+## v2.0.0 支持MacOS
+
+![Krabby v2.0.0 MacOS](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_macos_screenshot.png)
+
+![Krabby v2.0.0 WASM](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_macos_screenshot.png)
+
+- 支持MacOS，移除对DTK的依赖
+- 支持键盘提示
+- 调整部分图标
+- 基于Qt6.5部分支持WASM
 
 ## 金山打字通deepin版
 
@@ -40,7 +50,7 @@
   - 每篇文章分成多个页，不同页之前不能干扰
   - 每页有5行输入的文本
   
-## 当前实现
+### 当前实现
 ![demo](https://img-blog.csdnimg.cn/20190406212406814.png)
 
 ![score](https://img-blog.csdnimg.cn/20190407123805743.png)
@@ -49,13 +59,13 @@
 
 ![setting](https://img-blog.csdnimg.cn/20190407213525447.png)
 
-## 使用
+### 使用
 
 在Release页面下载deb包 [前往下载地址](https://github.com/PikachuHy/Krabby/releases)
 
 然后双击安装就好
 
-## 参与讨论
+### 参与讨论
 
 可以在deepin论坛的帖子 [一个简单的打字软件](https://bbs.deepin.org/forum.php?mod=viewthread&tid=176472&extra=) 留言，或者提ISSUE
 
