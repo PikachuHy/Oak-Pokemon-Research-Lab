@@ -10,6 +10,7 @@ public:
     explicit Toolbar(QWidget *parent = nullptr);
 
 signals:
+    void openSettings();
     void reset();
     void chooseArticle();
 public slots:

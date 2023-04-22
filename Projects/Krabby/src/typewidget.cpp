@@ -4,25 +4,32 @@
 #include <QtCore>
 #include <QtWidgets>
 #include <QMediaPlayer>
-int TIME_INTERVAL = 250;
+#include <QSoundEffect>
+int TIME_INTERVAL = 1000;
 
 TypeWidget::TypeWidget(QWidget *parent)
     : QWidget(parent)
 {
-    m_eachLineCharCount = 50;
-    m_fontWidth = 24;
+    m_eachLineCharCount = 80;
+    m_fontWidth = 36;
     m_lineHeight = 36;
     m_cursorShow = true;
     m_pageNum = 0;
-    m_eachPageLineCount = 5;
+    m_eachPageLineCount = 8;
     m_start = false;
     m_finish = false;
     m_time ++;
-    m_audioPlayer = new QMediaPlayer(this);
+
+    m_typeErrorSoundEffect = new QSoundEffect(this);
+    m_typeSoundEffect = new QSoundEffect(this);
+
+    m_typeErrorSoundEffect->setSource(QUrl("qrc:/audio/error.wav"));
+    m_typeSoundEffect->setSource(QUrl("qrc:/audio/type.wav"));
+
     m_setting = new Setting();
-    resize(m_eachLineCharCount * 14 + 10, height());
+    setFixedSize(m_eachLineCharCount * 22 + 10, m_eachPageLineCount * m_lineHeight * 2);
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, [=]() {
+    connect(m_timer, &QTimer::timeout, this, [=]() {
         if (m_start) {
             m_time ++;
             emit updateTime(formatTime());
@@ -53,7 +60,7 @@ void TypeWidget::paintEvent(QPaintEvent *event)
     painter.save();
     auto font = painter.font();
     font.setPixelSize(m_fontWidth);
-    font.setFamily("Noto Mono");
+    font.setFamily("Courier New");
     painter.setFont(font);
     QFontMetrics fontMetrics(font);
     int x = 0;
@@ -66,18 +73,18 @@ void TypeWidget::paintEvent(QPaintEvent *event)
             }
             painter.setPen(m_setting->untypedCharColor());
             QString chStr = QString(m_text[i]);
-            w = fontMetrics.width(chStr);
+            w = fontMetrics.horizontalAdvance(chStr);
             auto rect = QRect(x, y, w, m_lineHeight);
             painter.drawText(rect, Qt::AlignCenter, chStr);
         } else {
             if (m_text[i] == m_input[i]) {
                 QString chStr = QString(m_text[i]);
-                w = fontMetrics.width(chStr);
+                w = fontMetrics.horizontalAdvance(chStr);
                 drawCorrectChar(painter, x, y, w, chStr);
             } else {
                 QString chTarget = QString(m_text[i]);
                 QString chInput = QString(m_input[i]);
-                w = qMax(fontMetrics.width(chTarget), fontMetrics.width(chInput));
+                w = qMax(fontMetrics.horizontalAdvance(chTarget), fontMetrics.horizontalAdvance(chInput));
                 drawWrongChar(painter, x, y, w, chTarget, chInput);
             }
         }
@@ -132,22 +139,8 @@ void TypeWidget::keyReleaseEvent(QKeyEvent *event)
 
 void TypeWidget::reset()
 {
-    m_input.clear();
-    m_inputTotal = 0;
-    m_time = 0;
-    updateTime("00:00::00");
-    updateProgress(0);
-    updateAccuracy(100);
-    updateSpeed(0);
-    m_pageNum = 0;
-    m_text = m_pageText[m_pageNum];
-    if (m_finish) {
-        m_finish = false;
-        m_start = false;
-        m_timer->start();
-    }
-    update();
-    setFocus();
+    resetInternal();
+    QMessageBox::information(this, tr("krabby"), tr("Reset Success"));
 }
 
 void TypeWidget::resetText(QString text)
@@ -162,7 +155,7 @@ void TypeWidget::resetText(QString text)
         int len = m_eachPageLineCount * m_eachLineCharCount;
         m_pageText.append(text.mid(index, len));
     }
-    reset();
+    resetInternal();
 }
 
 void TypeWidget::pause()
@@ -240,11 +233,10 @@ void TypeWidget::playAudio()
         return;
     }
     if(m_input[m_input.length() - 1] == m_text[m_input.length()-1]) {
-        m_audioPlayer->setMedia(QUrl("qrc:/audio/type.wav"));
+        m_typeSoundEffect->play();
     } else {
-        m_audioPlayer->setMedia(QUrl("qrc:/audio/error.wav"));
+        m_typeErrorSoundEffect->play();
     }
-    m_audioPlayer->play();
 }
 
 int TypeWidget::calAccuracy()
@@ -260,9 +252,29 @@ int TypeWidget::calSpeed()
     return 1.0 * m_inputTotal / m_time * 4 * 60;
 }
 
+void TypeWidget::resetInternal()
+{
+    m_input.clear();
+    m_inputTotal = 0;
+    m_time = 0;
+    emit updateTime("00:00::00");
+    emit updateProgress(0);
+    emit updateAccuracy(100);
+    emit updateSpeed(0);
+    m_pageNum = 0;
+    m_text = m_pageText[m_pageNum];
+    if (m_finish) {
+        m_finish = false;
+        m_start = false;
+        m_timer->start();
+    }
+    update();
+    setFocus();
+}
+
 QString TypeWidget::formatTime()
 {
-    return QDateTime::fromTime_t(m_time / (1000 / TIME_INTERVAL)).toUTC().toString("hh:mm:ss");
+    return QDateTime::fromSecsSinceEpoch(m_time / (1000 / TIME_INTERVAL)).toUTC().toString("hh:mm:ss");
 }
 
 QString TypeWidget::prehanlde(QString text)

@@ -7,16 +7,17 @@ ChooseArticleDialog::ChooseArticleDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pushButtonFolder->setIcon(QIcon(":/icon/folder.png"));
+    ui->pushButtonFolder->setFixedSize(32, 32);
     ui->treeWidget->header()->hide();
     QDir rootDir(":/article");
     auto list = rootDir.entryInfoList();
-    for(auto dir: list) {
+    for(const auto& dir: list) {
         qDebug() << dir.baseName();
         auto item =  new QTreeWidgetItem();
         item->setText(0, dir.baseName());
         ui->treeWidget->addTopLevelItem(item);
         QDir typeDir(dir.absoluteFilePath());
-        for(QString file: typeDir.entryList()) {
+        for(const QString& file: typeDir.entryList()) {
             qDebug() << file;
             auto list = QStringList()
                     << file.left(file.length() - 4)

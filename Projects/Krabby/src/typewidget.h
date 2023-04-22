@@ -3,6 +3,7 @@
 
 #include <QWidget>
 class QMediaPlayer;
+class QSoundEffect;
 class QTimer;
 class Setting;
 class TypeWidget : public QWidget
@@ -36,6 +37,7 @@ private:
     void playAudio();
     int calAccuracy();
     int calSpeed();
+    void resetInternal();
     QString formatTime();
     QString prehanlde(QString text);
 private slots:
@@ -57,7 +59,8 @@ private:
     bool m_start;
     bool m_finish;
 
-    QMediaPlayer *m_audioPlayer;
+    QSoundEffect *m_typeErrorSoundEffect;
+    QSoundEffect *m_typeSoundEffect;
     QTimer *m_timer;
     Setting *m_setting;
 };

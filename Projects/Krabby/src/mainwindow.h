@@ -1,11 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <DMainWindow>
-DWIDGET_USE_NAMESPACE
+#include <QMainWindow>
+
 class TypeWidget;
 class ChooseArticleDialog;
-class MainWindow : public DMainWindow
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
