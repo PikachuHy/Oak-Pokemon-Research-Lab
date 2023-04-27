@@ -6,12 +6,13 @@ class QMediaPlayer;
 class QSoundEffect;
 class QTimer;
 class Setting;
+class Database;
 class TypeWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    TypeWidget(QWidget *parent = 0);
+    TypeWidget(Database *db, QWidget *parent = 0);
     ~TypeWidget();
 
 
@@ -60,12 +61,15 @@ private:
     int m_prevWrongCount;
     bool m_start;
     bool m_finish;
+    bool m_hasShowFinishDialog;
 
     QSoundEffect *m_typeErrorSoundEffect;
     QSoundEffect *m_typeSoundEffect;
     QTimer *m_timer;
     Setting *m_setting;
     QString m_articleFont;
+
+    Database* m_database;
 };
 
 #endif // WIDGET_H

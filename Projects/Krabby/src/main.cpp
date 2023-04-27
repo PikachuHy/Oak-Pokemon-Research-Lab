@@ -4,9 +4,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setOrganizationName("pikachu");
-    a.setApplicationName("krabby");
-    a.setApplicationVersion("1.0");
+    a.setOrganizationName("PikachuHy");
+    a.setApplicationName("Krabby");
+    a.setApplicationVersion("2.0");
 
     MainWindow w;
     w.show();

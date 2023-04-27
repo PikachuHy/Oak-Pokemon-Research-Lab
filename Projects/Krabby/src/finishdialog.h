@@ -2,6 +2,7 @@
 #define FINISHDIALOG_H
 
 #include <QDialog>
+#include "score.h"
 
 namespace Ui {
 class FinishDialog;
@@ -19,6 +20,7 @@ public:
             int speed,
             int accuracy,
             QWidget *parent = 0);
+    void init_score_chart(std::vector<Score> scores);
     ~FinishDialog();
 
 private:

@@ -7,11 +7,12 @@
 #include <QSoundEffect>
 #include <QFontDatabase>
 #include <chrono>
+#include "database.h"
 using namespace std::chrono_literals;
 int TIME_INTERVAL = 1000;
 const char* DEFAULT_ARTICLE_FONT = "Courier New";
-TypeWidget::TypeWidget(QWidget *parent)
-    : QWidget(parent)
+TypeWidget::TypeWidget(Database *db, QWidget *parent)
+    : m_database(db), QWidget(parent)
 {
     m_eachLineCharCount = 80;
     m_fontWidth = 36;
@@ -21,6 +22,7 @@ TypeWidget::TypeWidget(QWidget *parent)
     m_eachPageLineCount = 8;
     m_start = false;
     m_finish = false;
+    m_hasShowFinishDialog = false;
     m_time ++;
 
     m_typeErrorSoundEffect = new QSoundEffect(this);
@@ -136,8 +138,10 @@ void TypeWidget::keyReleaseEvent(QKeyEvent *event)
             // ignore
         } else {
             m_start = true;
-            m_input.append(key);
-            m_inputTotal++;
+            if (m_input.size() < m_text.size()) {
+                m_input.append(key);
+                m_inputTotal++;
+            }
             playAudio();
             emit updateAccuracy(calAccuracy());
             int progress = 100 * m_inputTotal / m_textTotal;
@@ -271,6 +275,7 @@ int TypeWidget::calSpeed()
 
 void TypeWidget::resetInternal()
 {
+    m_hasShowFinishDialog = false;
     m_input.clear();
     m_inputTotal = 0;
     m_time = 0;
@@ -318,11 +323,20 @@ void TypeWidget::requestHighlightCurrentKey()
 
 void TypeWidget::finishTest()
 {
+    if (m_hasShowFinishDialog) {
+        return;
+    }
     m_timer->stop();
     m_finish = true;
     int speed = calSpeed();
     int accuracy = calAccuracy();
     int score = speed * accuracy / 100;
+    auto username = QDir().home().dirName();
+    m_database->insert_score(Score(username.toStdString(), score));
+    auto scores = m_database->fetch_scores();
+    for(auto score: scores) {
+        qDebug() << score.to_string();
+    }
     FinishDialog d(
                 score,
                 formatTime(),
@@ -331,6 +345,8 @@ void TypeWidget::finishTest()
                 accuracy,
                 this
                 );
+    d.init_score_chart(scores);
+    m_hasShowFinishDialog = true;
     d.exec();
 }
 

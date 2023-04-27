@@ -7,11 +7,15 @@
 #include "toolbar.h"
 #include <QtWidgets>
 #include <chrono>
+#include "database.h"
+#include <QtCharts>
+#include "scorechartwidget.h"
 using namespace std::chrono_literals;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    m_typeWidget = new TypeWidget();
+    m_database = new Database();
+    m_typeWidget = new TypeWidget(m_database);
     m_keyboardWidget = new KeyboardWidget();
     m_chooseArticleDialog = new ChooseArticleDialog();
     QVBoxLayout *mainLayout = new QVBoxLayout();
@@ -26,6 +30,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(toolbar, &Toolbar::reset, m_typeWidget, &TypeWidget::reset);
     connect(toolbar, &Toolbar::chooseArticle, m_typeWidget, &TypeWidget::pause);
     connect(toolbar, &Toolbar::chooseArticle, m_chooseArticleDialog, &ChooseArticleDialog::exec);
+    connect(toolbar, &Toolbar::showChart, this, [this](){
+        auto scores = m_database->fetch_scores();
+        ScoreChartWidget *w = new ScoreChartWidget();
+        w->init(scores);
+        w->resize(800, 600);
+        w->show();
+    });
  
     mainLayout->addWidget(toolbar);
     mainLayout->addWidget(m_typeWidget);
@@ -60,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete m_database;
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)

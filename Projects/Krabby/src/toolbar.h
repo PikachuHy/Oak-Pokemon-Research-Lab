@@ -13,6 +13,7 @@ signals:
     void openSettings();
     void reset();
     void chooseArticle();
+    void showChart();
 public slots:
 };
 

@@ -25,5 +25,6 @@
         <file>icon/icons8-document-50.png</file>
         <file>icon/icons8-reset-50.png</file>
         <file>icon/icons8-settings-50.png</file>
+        <file>icon/icons8-combo-chart-50.png</file>
     </qresource>
 </RCC>

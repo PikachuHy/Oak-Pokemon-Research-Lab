@@ -11,13 +11,13 @@ file(GLOB_RECURSE HEADERS "*.h")
 file(GLOB_RECURSE FORMS "*.ui")
 file(GLOB_RECURSE RESOURCES "*.qrc")
 
-set(QT Core Gui Widgets Multimedia)
+set(QT Core Gui Widgets Multimedia Sql Charts)
 find_package(Qt6 REQUIRED ${QT})
 qt_add_executable(krabby
     MANUAL_FINALIZATION
     ${SOURCES} ${HEADERS} ${FORMS} ${RESOURCES}
 )
-target_link_libraries(krabby PRIVATE Qt::Widgets Qt::Multimedia)
+target_link_libraries(krabby PRIVATE Qt::Widgets Qt::Multimedia Qt::Sql Qt::Charts)
 
 set_target_properties(krabby PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER krabby.pikachu.net.cn
