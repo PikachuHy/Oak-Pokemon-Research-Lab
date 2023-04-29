@@ -9,6 +9,7 @@ SettingDialog::SettingDialog(QWidget *parent) :
     ui->setupUi(this);
     m_setting = new Setting();
     ui->checkBoxKeyboardAudio->setChecked(m_setting->keyboardAudio());
+    ui->checkBoxShowKeyboard->setChecked(m_setting->showKeyboard());
     ui->pushButtonCorrectCharColor->setColor(m_setting->correctCharColor());
     ui->pushButtonWrongCharColor->setColor(m_setting->wrongCharColor());
     ui->pushButtonUntypedCharColor->setColor(m_setting->untypedCharColor());
@@ -83,3 +84,21 @@ void SettingDialog::on_checkBoxKeyboardAudio_stateChanged(int state)
         m_setting->setKeyboardAudio(true);
     }
 }
+
+void SettingDialog::on_checkBoxShowKeyboard_stateChanged(int state)
+{
+    bool flag = m_setting->showKeyboard();
+    if (state == Qt::Unchecked) {
+        m_setting->setShowKeyboard(false);
+        if (flag == true) {
+            emit showKeyboardChanged();
+        }
+    }
+    if (state == Qt::Checked) {
+        m_setting->setShowKeyboard(true);
+        if (flag == false) {
+            emit showKeyboardChanged();
+        }
+    }
+}
+

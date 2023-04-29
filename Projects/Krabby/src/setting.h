@@ -11,6 +11,8 @@ public:
     Setting();
     void setKeyboardAudio(bool flag);
     bool keyboardAudio();
+    void setShowKeyboard(bool flag);
+    bool showKeyboard();
     void setCorrectCharColor(QColor color);
     QColor correctCharColor();
     void setWrongCharColor(QColor color);

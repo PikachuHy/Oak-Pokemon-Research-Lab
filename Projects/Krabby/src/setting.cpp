@@ -2,6 +2,7 @@
 #include <QVariant>
 #include <QSettings>
 QString setting_key_keyboard_audio = "keyboard_audio";
+QString setting_key_show_keyboard = "show_keyboard";
 QString setting_key_correct_char_color = "correct_char_color";
 QString setting_key_wrong_char_color = "wrong_char_color";
 QString setting_key_untyped_char_color = "untyped_char_color";
@@ -19,6 +20,17 @@ void Setting::setKeyboardAudio(bool flag)
 bool Setting::keyboardAudio()
 {
     return m_setting->value(setting_key_keyboard_audio).toBool();
+}
+
+void Setting::setShowKeyboard(bool flag)
+{
+    m_setting->setValue(setting_key_show_keyboard, flag);
+    m_setting->sync();
+}
+
+bool Setting::showKeyboard()
+{
+    return m_setting->value(setting_key_show_keyboard).toBool();
 }
 
 void Setting::setCorrectCharColor(QColor color)

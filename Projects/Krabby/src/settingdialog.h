@@ -14,7 +14,8 @@ class SettingDialog : public QDialog
 public:
     explicit SettingDialog(QWidget *parent = 0);
     ~SettingDialog();
-
+signals:
+    void showKeyboardChanged();
 private slots:
     void on_pushButtonCorrectCharColor_clicked();
 
@@ -25,6 +26,8 @@ private slots:
     void on_pushButtonRestoreDefaultSetting_clicked();
 
     void on_checkBoxKeyboardAudio_stateChanged(int state);
+
+    void on_checkBoxShowKeyboard_stateChanged(int state);
 
 private:
     void updateColorButton();
