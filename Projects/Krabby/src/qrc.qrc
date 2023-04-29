@@ -6,25 +6,31 @@
         <file>audio/type.wav</file>
         <file>images/logo32.png</file>
         <file>images/krabby_finish_test.png</file>
-        <file>icon/speed.png</file>
-        <file>icon/time.png</file>
-        <file>icon/progress.png</file>
-        <file>icon/accuracy.png</file>
-        <file>icon/reset.png</file>
         <file>article/Lyrics/My Heart Will Go On.txt</file>
         <file>article/Speech/Independence Day.txt</file>
         <file>article/Lyrics/Nothing's gonna change my love for you.txt</file>
-        <file>icon/article.png</file>
         <file>icon/folder.png</file>
         <file>article/Lyrics/My Love.txt</file>
         <file>article/Lyrics/Take Me To Your Heart.txt</file>
         <file>article/Speech/肯尼迪就职演说 Inaugural Address.txt</file>
         <file>article/Speech/美国总统（富兰克林-罗斯福）就职演说 First Inaugural Address.txt</file>
         <file>article/Speech/I Have a Dream.txt</file>
-        <file>icon/settings.png</file>
         <file>icon/icons8-document-50.png</file>
         <file>icon/icons8-reset-50.png</file>
         <file>icon/icons8-settings-50.png</file>
         <file>icon/icons8-combo-chart-50.png</file>
+        <file>icon/icons8-accuracy-50.png</file>
+        <file>icon/icons8-speed-50.png</file>
+        <file>icon/icons8-time-50.png</file>
+        <file>icon/icons8-percent.gif</file>
+        <file>icon/icons8-0-percent-50.png</file>
+        <file>icon/icons8-10-percent-50.png</file>
+        <file>icon/icons8-20-percent-50.png</file>
+        <file>icon/icons8-30-percent-50.png</file>
+        <file>icon/icons8-50-percent-50.png</file>
+        <file>icon/icons8-70-percent-50.png</file>
+        <file>icon/icons8-80-percent-50.png</file>
+        <file>icon/icons8-90-percent-50.png</file>
+        <file>icon/icons8-100-percent-50.png</file>
     </qresource>
 </RCC>

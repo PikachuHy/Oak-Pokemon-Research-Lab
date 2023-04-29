@@ -29,11 +29,20 @@
    </item>
    <item>
     <widget class="QLabel" name="label_5">
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="qrc.qrc">:/icon/time.png</pixmap>
+      <pixmap resource="qrc.qrc">:/icon/icons8-time-50.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -46,6 +55,12 @@
    </item>
    <item>
     <widget class="QLabel" name="labelTime">
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="text">
       <string>00:00:00</string>
      </property>
@@ -53,11 +68,20 @@
    </item>
    <item>
     <widget class="QLabel" name="label_6">
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="qrc.qrc">:/icon/speed.png</pixmap>
+      <pixmap resource="qrc.qrc">:/icon/icons8-speed-50.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -72,7 +96,7 @@
     <widget class="QLabel" name="labelSpeed">
      <property name="minimumSize">
       <size>
-       <width>60</width>
+       <width>80</width>
        <height>0</height>
       </size>
      </property>
@@ -82,12 +106,21 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="labelProgressIcon">
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="qrc.qrc">:/icon/progress.png</pixmap>
+      <pixmap resource="qrc.qrc">:/icon/icons8-0-percent-50.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -100,18 +133,33 @@
    </item>
    <item>
     <widget class="QLabel" name="labelProgress">
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="text">
-      <string>0 %</string>
+      <string>100 %</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_8">
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="text">
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="qrc.qrc">:/icon/accuracy.png</pixmap>
+      <pixmap resource="qrc.qrc">:/icon/icons8-accuracy-50.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -124,6 +172,12 @@
    </item>
    <item>
     <widget class="QLabel" name="labelAccuracy">
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="text">
       <string>100 %</string>
      </property>
