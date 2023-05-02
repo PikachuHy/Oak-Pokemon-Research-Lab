@@ -184,6 +184,28 @@ void TypeWidget::pause()
     m_start = false;
 }
 
+void TypeWidget::randomKeyboardPractice()
+{
+    std::string alphanum = R"(abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,./;'[]<>?:"{}|)";
+    std::random_device rd;
+    std::mt19937 g(rd());
+
+    std::shuffle(alphanum.begin(), alphanum.end(), g);
+    QString s;
+    s.append("abcdefg hijklmn opqrst uvwxyz ");
+    auto qt_s = QString::fromStdString(alphanum);
+    int index = 0;
+    while (index < qt_s.size()) {
+        int interval = g() % 5 + 5;
+        for(int i=0;i<interval && index+i < qt_s.size();i++) {
+            s.append(qt_s[index+i]);
+        }
+        s.append(' ');
+        index += interval;
+    }
+    resetText(s);
+}
+
 
 
 void TypeWidget::drawWrongChar(QPainter &painter, int x, int y, int w, QString targetCh, QString inputCh)

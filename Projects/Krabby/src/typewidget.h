@@ -22,6 +22,7 @@ public slots:
     void reset();
     void resetText(QString text);
     void pause();
+    void randomKeyboardPractice();
 protected:
     void paintEvent(QPaintEvent *event) override;
 signals:

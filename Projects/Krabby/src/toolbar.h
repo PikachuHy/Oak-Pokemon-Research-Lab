@@ -12,6 +12,7 @@ public:
 signals:
     void openSettings();
     void reset();
+    void randomKeyboardPracticeRequest();
     void chooseArticle();
     void showChart();
 public slots:

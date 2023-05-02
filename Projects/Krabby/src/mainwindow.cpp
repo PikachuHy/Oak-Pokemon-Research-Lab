@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
         dialog.exec();
     });
     connect(toolbar, &Toolbar::reset, m_typeWidget, &TypeWidget::reset);
+    connect(toolbar, &Toolbar::randomKeyboardPracticeRequest, m_typeWidget, &TypeWidget::randomKeyboardPractice);
     connect(toolbar, &Toolbar::chooseArticle, m_typeWidget, &TypeWidget::pause);
     connect(toolbar, &Toolbar::chooseArticle, m_chooseArticleDialog, &ChooseArticleDialog::exec);
     connect(toolbar, &Toolbar::showChart, this, [this](){
