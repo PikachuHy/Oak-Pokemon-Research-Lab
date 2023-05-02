@@ -17,8 +17,17 @@
 
 栖息地
 沙滩的洞中。
-## v2.0.0 支持MacOS
+## v2
 
+### v2.1.0 支持统计
+![Krabby v2.1.0 MacOS](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.1.0_macos_screenshot.png)
+
+- 调整部分图标
+- 支持统计打字速度
+- 支持随机键盘练习
+- 支持隐藏/显示键盘
+
+### v2.0.0 支持MacOS
 ![Krabby v2.0.0 MacOS](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_macos_screenshot.png)
 
 ![Krabby v2.0.0 WASM](http://cdn.pikachu.net.cn/project/Krabby/krabby_v2.0.0_wasm_screenshot.png)

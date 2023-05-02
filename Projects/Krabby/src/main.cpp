@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setOrganizationName("PikachuHy");
     a.setApplicationName("Krabby");
-    a.setApplicationVersion("2.0");
+    a.setApplicationVersion("2.1.0");
 
     MainWindow w;
     w.show();
