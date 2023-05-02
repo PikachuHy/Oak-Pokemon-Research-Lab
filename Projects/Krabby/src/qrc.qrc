@@ -9,7 +9,6 @@
         <file>article/Lyrics/My Heart Will Go On.txt</file>
         <file>article/Speech/Independence Day.txt</file>
         <file>article/Lyrics/Nothing's gonna change my love for you.txt</file>
-        <file>icon/folder.png</file>
         <file>article/Lyrics/My Love.txt</file>
         <file>article/Lyrics/Take Me To Your Heart.txt</file>
         <file>article/Speech/肯尼迪就职演说 Inaugural Address.txt</file>
@@ -33,5 +32,6 @@
         <file>icon/icons8-90-percent-50.png</file>
         <file>icon/icons8-100-percent-50.png</file>
         <file>icon/icons8-keyboard-50.png</file>
+        <file>icon/icons8-folder-50.png</file>
     </qresource>
 </RCC>

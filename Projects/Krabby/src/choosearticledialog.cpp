@@ -6,9 +6,8 @@ ChooseArticleDialog::ChooseArticleDialog(QWidget *parent) :
     ui(new Ui::ChooseArticleDialog)
 {
     ui->setupUi(this);
-    ui->pushButtonFolder->setIcon(QIcon(":/icon/folder.png"));
-    ui->pushButtonFolder->setFixedSize(32, 32);
     ui->treeWidget->header()->hide();
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowMinimizeButtonHint);
     QDir rootDir(":/article");
     auto list = rootDir.entryInfoList();
     for(const auto& dir: list) {
@@ -59,10 +58,15 @@ void ChooseArticleDialog::handleTreeWidgetItemClicked(QTreeWidgetItem *item, int
 
 void ChooseArticleDialog::on_pushButtonFolder_clicked()
 {
+    QString open_dir = QDir::homePath();
+    auto doc_dirs = QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
+    if (!doc_dirs.empty()) {
+        open_dir = doc_dirs.first();
+    }
     auto filepath = QFileDialog::getOpenFileName(
                 this,
                 tr("Choose Article"),
-                QStandardPaths::displayName(QStandardPaths::DocumentsLocation),
+                open_dir,
                 tr("text (*.txt)")
                 );
     if (filepath.isEmpty()) {
