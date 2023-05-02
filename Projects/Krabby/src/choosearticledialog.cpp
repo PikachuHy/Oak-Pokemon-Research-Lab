@@ -7,7 +7,6 @@ ChooseArticleDialog::ChooseArticleDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->treeWidget->header()->hide();
-    this->setWindowFlags(this->windowFlags() & ~Qt::WindowMinimizeButtonHint);
     QDir rootDir(":/article");
     auto list = rootDir.entryInfoList();
     for(const auto& dir: list) {

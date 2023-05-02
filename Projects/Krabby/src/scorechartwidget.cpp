@@ -2,7 +2,7 @@
 #include <QtCharts>
 #include <QHBoxLayout>
 #include <QWidget>
-#include <QDateTime>>
+#include <QDateTime>
 ScoreChartWidget::ScoreChartWidget(QWidget* parent): QWidget(parent) {}
 
 void ScoreChartWidget::init(std::vector<Score> scores)
@@ -12,7 +12,8 @@ void ScoreChartWidget::init(std::vector<Score> scores)
     for(std::size_t i=0;i<scores.size();i++) {
         max_val = std::max(max_val, scores[i].score);
         auto datetime = QDateTime::fromSecsSinceEpoch(scores[i].create_time);
-        series->append(datetime.toMSecsSinceEpoch(), scores[i].score);
+        // series->append(datetime.toMSecsSinceEpoch(), scores[i].score);
+        series->append(i, scores[i].score);
     }
     max_val = (max_val + 24) / 25 * 25 + 25;
     QChart *chart = new QChart();
@@ -21,9 +22,12 @@ void ScoreChartWidget::init(std::vector<Score> scores)
     chart->setTitle("Score Spline Chart");
     chart->addSeries(series);
 
-    auto *axisX = new QDateTimeAxis();
-    axisX->setFormat("yyyy-MM-dd");
-    axisX->setTitleText("Date");
+    // auto *axisX = new QDateTimeAxis();
+    // axisX->setFormat("yyyy-MM-dd");
+    // axisX->setTitleText("Date");
+    auto *axisX = new QValueAxis();
+    axisX->setLabelFormat("%d");
+    axisX->setTitleText("Count");
     chart->setAxisX(axisX, series);
 
     auto *axisY = new QValueAxis();
