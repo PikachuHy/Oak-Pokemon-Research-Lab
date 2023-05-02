@@ -33,5 +33,7 @@
         <file>icon/icons8-100-percent-50.png</file>
         <file>icon/icons8-keyboard-50.png</file>
         <file>icon/icons8-folder-50.png</file>
+        <file>icon/icons8-line-chart-50.png</file>
+        <file>icon/icons8-spreadsheet-50.png</file>
     </qresource>
 </RCC>
