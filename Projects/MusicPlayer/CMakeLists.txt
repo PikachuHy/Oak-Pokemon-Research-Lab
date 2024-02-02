@@ -49,6 +49,7 @@ qt_add_qml_module(MyMusic
     RESOURCES note_64x64.png
     RESOURCES folder_64x64.png
     RESOURCES check_64x64.png
+    RESOURCES back_64x64.png
 
     QML_FILES
     SnowyEffect/export/SnowyEffect.qml

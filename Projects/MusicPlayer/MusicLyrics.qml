@@ -5,7 +5,7 @@ import QtMultimedia
 import "SnowyEffect/export"
 import QtQuick.Effects
 
-Rectangle {
+Item {
     id: musicLyrics
     required property MediaPlayer mediaPlayer
     required property string musicName
@@ -16,8 +16,65 @@ Rectangle {
         timeRunning: true
     }
     Item {
+        id: toolBar
+        width: parent.width
+        height: 32 + 10
+
+
+        // Source for the blur effect is lower part of backgroundItem
+        ShaderEffectSource {
+            id: toolBarEffectSource
+            anchors.fill: parent
+            sourceItem: backgroundItem
+            sourceRect: Qt.rect(0, 0, toolBar.width, toolBar.height + 10)
+            visible: false
+        }
+
+        // Effect to blur and colorize the toolbar
+        MultiEffect {
+            anchors.fill: toolBarEffectSource
+            source: toolBarEffectSource
+            autoPaddingEnabled: false
+            blurEnabled: true
+            blurMax: 64
+            blur: 0.5
+            saturation: 0.5
+        }
+        RowLayout {
+            anchors.fill: parent
+            Image {
+                Layout.leftMargin: 10
+                Layout.preferredWidth: 32
+                Layout.preferredHeight: 32
+                source: "back_64x64.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        $KeyFilter.keyBackPress()
+                    }
+                }
+            }
+            Label {
+                id: musicNameText
+                text: musicLyrics.musicName
+                elide: Label.ElideRight
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                Layout.fillWidth: true
+
+                Connections {
+                    target: mediaPlayer
+
+                    function onMusicNameChanged() {
+                        musicNameText.text = mediaPlayer.musicName
+                    }
+                }
+            }
+        }
+    }
+    Item {
         id: diskImage
-        anchors.top: musicNameText.bottom
+        anchors.top: toolBar.bottom
         width: parent.width < parent.height ? parent.width : parent.height
         height: parent.width < parent.height ? parent.width : parent.height
 
@@ -35,25 +92,13 @@ Rectangle {
 
         Connections {
             target: mediaPlayer
+
             function onPlaybackStateChanged() {
                 if (mediaPlayer.playbackState == MediaPlayer.PlayingState) {
                     diskImageRotation.resume()
                 } else {
                     diskImageRotation.pause()
                 }
-            }
-        }
-    }
-
-    Text {
-        id: musicNameText
-        width: parent.width
-        text: musicLyrics.musicName
-
-        Connections {
-            target: mediaPlayer
-            function onMusicNameChanged() {
-                musicNameText.text = mediaPlayer.musicName
             }
         }
     }
@@ -67,7 +112,8 @@ Rectangle {
             id: effectSource
             anchors.fill: parent
             sourceItem: backgroundItem
-            sourceRect: Qt.rect(0, musicLyrics.height - 64 + 20, musicLyrics.width, 64 + 20)
+            sourceRect: Qt.rect(0, musicLyrics.height - 64 + 20,
+                musicLyrics.width, 64 + 20)
             visible: false
         }
 
@@ -102,6 +148,7 @@ Rectangle {
 
                 Connections {
                     target: mediaPlayer
+
                     function onPositionChanged(position) {
                         slider.value = position
                         slider.to = mediaPlayer.duration
@@ -135,6 +182,7 @@ Rectangle {
                     Connections {
                         id: time
                         target: mediaPlayer
+
                         function format(time) {
 
                             time = time / 1000
@@ -162,6 +210,7 @@ Rectangle {
                             }
                             return ret
                         }
+
                         function onPositionChanged(position) {
                             currentTime.text = time.format(position)
                             totalTime.text = time.format(mediaPlayer.duration)
@@ -219,7 +268,6 @@ Rectangle {
             }
         }
     }
-
 
     Component.onCompleted: {
         slider.value = mediaPlayer.position
