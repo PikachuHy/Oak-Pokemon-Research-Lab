@@ -2,19 +2,27 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtMultimedia
+import "SnowyEffect/export"
+import QtQuick.Effects
 
 Rectangle {
     id: musicLyrics
     required property MediaPlayer mediaPlayer
     required property string musicName
-    Rectangle {
+    // Lively background created with QQEM.
+    SnowyEffect {
+        id: backgroundItem
+        anchors.fill: parent
+        timeRunning: true
+    }
+    Item {
         id: diskImage
         anchors.top: musicNameText.bottom
         width: parent.width < parent.height ? parent.width : parent.height
         height: parent.width < parent.height ? parent.width : parent.height
 
         Image {
-            source: "disk_600x600.jpeg"
+            source: "disk_600x600.png"
             anchors.fill: parent
         }
         RotationAnimation on rotation {
@@ -49,9 +57,35 @@ Rectangle {
             }
         }
     }
-    Rectangle {
+    Item {
+        anchors.bottom: parent.bottom
         width: parent.width
-        height: 64
+        height: 64 + 20
+
+        // Source for the blur effect is lower part of backgroundItem
+        ShaderEffectSource {
+            id: effectSource
+            anchors.fill: parent
+            sourceItem: backgroundItem
+            sourceRect: Qt.rect(0, musicLyrics.height - 64 + 20, musicLyrics.width, 64 + 20)
+            visible: false
+        }
+
+        // Effect to blur and colorize the toolbar
+        MultiEffect {
+            anchors.fill: effectSource
+            source: effectSource
+            autoPaddingEnabled: false
+            blurEnabled: true
+            blurMax: 64
+            blur: 0.5
+            saturation: 0.5
+        }
+    }
+
+    Item {
+        width: parent.width
+        height: 64 + 10
         anchors.bottom: parent.bottom
         Column {
             anchors.fill: parent
@@ -185,6 +219,8 @@ Rectangle {
             }
         }
     }
+
+
     Component.onCompleted: {
         slider.value = mediaPlayer.position
         slider.to = mediaPlayer.duration

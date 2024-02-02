@@ -2,7 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtMultimedia
-
+import "SnowyEffect/export"
+import QtQuick.Effects
 Page {
     id: musicPlayerRoot
     property bool playing: false
@@ -10,7 +11,6 @@ Page {
     width: 400
     height: 800
     title: "Music Player"
-
     MediaPlayer {
         id: mediaPlayer
         audioOutput: AudioOutput {}
@@ -48,6 +48,7 @@ Page {
 
                 Text {
                     text: model.name
+                    leftPadding: 16
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
@@ -75,14 +76,14 @@ Page {
         Rectangle {
             visible: true
             Layout.fillWidth: true
-            Layout.preferredHeight: 32
+            Layout.preferredHeight: 64
             Component.onCompleted: {
 
             }
             // 这个进度条在安卓上无法显示，奇怪
             Rectangle {
                 width: parent.width
-                height: 32
+                height: parent.height
                 anchors.bottom: parent.bottom
                 Rectangle {
                     id: mobileProcess

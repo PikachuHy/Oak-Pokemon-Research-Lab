@@ -40,7 +40,7 @@ qt_add_qml_module(MyMusic
     QML_FILES MusicPlayer.qml
     QML_FILES NoteListItem.qml
     QML_FILES MusicLyrics.qml
-    RESOURCES disk_600x600.jpeg
+    RESOURCES disk_600x600.png
     RESOURCES settings_64x64.png
     RESOURCES left-circle_64x64.png
     RESOURCES right-circle_64x64.png
@@ -49,6 +49,14 @@ qt_add_qml_module(MyMusic
     RESOURCES note_64x64.png
     RESOURCES folder_64x64.png
     RESOURCES check_64x64.png
+
+    QML_FILES
+    SnowyEffect/export/SnowyEffect.qml
+
+    RESOURCES
+    SnowyEffect/export/fog.png
+    SnowyEffect/export/snowyeffect.vert.qsb
+    SnowyEffect/export/snowyeffect.frag.qsb
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
