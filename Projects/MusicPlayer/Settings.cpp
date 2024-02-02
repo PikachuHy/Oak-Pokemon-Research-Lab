@@ -4,6 +4,8 @@
 
 const char Settings::KEY_MUSIC_DATA_PATH[] = "path/music_data";
 const char Settings::KEY_MAIN_WINDOW_GEOMETRY[] = "main_window/geometry";
+const char Settings::KEY_CURRENT_SONG_INDEX[] = "user/current_song_index";
+
 Settings *Settings::instance() {
   static Settings singleton;
   return &singleton;

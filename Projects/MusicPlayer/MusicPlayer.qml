@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtMultimedia
 import "SnowyEffect/export"
 import QtQuick.Effects
+
 Page {
     id: musicPlayerRoot
     property bool playing: false
@@ -11,6 +12,11 @@ Page {
     width: 400
     height: 800
     title: "Music Player"
+    onCurrentIndexChanged: () => {
+                               $Controller.setCurrentSongIndex(
+                                   musicPlayerRoot.currentIndex)
+                           }
+
     MediaPlayer {
         id: mediaPlayer
         audioOutput: AudioOutput {}
@@ -36,6 +42,7 @@ Page {
         width: parent.width
         height: parent.height
         ListView {
+            id: listView
             Layout.fillWidth: true
             Layout.fillHeight: true
             model: ListModel {
@@ -170,6 +177,7 @@ Page {
         mediaPlayer.play()
     }
     function pause() {
+        musicPlayerRoot.playing = false
         mediaPlayer.pause()
     }
     function fetchAllMusic(path) {
@@ -191,5 +199,14 @@ Page {
         var basePath = $Controller.musicDataPath()
         console.log("music data path:", basePath)
         fetchAllMusic(basePath)
+        console.log("list count", listView.count)
+        let song_index = $Controller.currentSongIndex()
+        if (listView.count > song_index) {
+            console.log("song_index", song_index)
+            let default_song = listModel.get(song_index)
+            musicPlayerRoot.play(default_song.path, default_song.name)
+            musicPlayerRoot.currentIndex = 0
+            musicPlayerRoot.pause()
+        }
     }
 }

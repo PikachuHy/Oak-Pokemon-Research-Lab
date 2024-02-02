@@ -37,6 +37,14 @@ QString Controller::musicDataPath() {
 
 void Controller::setMusicDataPath(QString path) { Settings::instance()->musicDataPath = path; }
 
+int Controller::currentSongIndex() {
+  return Settings::instance()->currentSongIndex;
+}
+
+void Controller::setCurrentSongIndex(int index) {
+  Settings::instance()->currentSongIndex = index;
+}
+
 bool Controller::isDesktop() {
 #ifdef Q_OS_ANDROID
   return false;

@@ -10,6 +10,7 @@ class Settings {
   QString configStorePath();
   static const char KEY_MUSIC_DATA_PATH[];
   static const char KEY_MAIN_WINDOW_GEOMETRY[];
+  static const char KEY_CURRENT_SONG_INDEX[];
 
   template <const char *key>
   struct QStringRef {
@@ -65,6 +66,7 @@ class Settings {
 
   QStringRef<KEY_MUSIC_DATA_PATH> musicDataPath;
   QRectRef<KEY_MAIN_WINDOW_GEOMETRY> mainWindowGeometry;
+  IntRef<KEY_CURRENT_SONG_INDEX> currentSongIndex;
 
   // Singleton, to be used by any part of the app
  private:

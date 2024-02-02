@@ -11,6 +11,9 @@ class Controller : public QObject {
   Q_INVOKABLE QString musicDataPath();
   Q_INVOKABLE void setMusicDataPath(QString path);
 
+  Q_INVOKABLE int currentSongIndex();
+  Q_INVOKABLE void setCurrentSongIndex(int index);
+
   Q_INVOKABLE bool isDesktop();
   Q_INVOKABLE bool isMobile();
 
