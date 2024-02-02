@@ -46,7 +46,7 @@ Item {
                 Layout.leftMargin: 10
                 Layout.preferredWidth: 32
                 Layout.preferredHeight: 32
-                source: "back_64x64.png"
+                source: "back-white_64x64.png"
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {

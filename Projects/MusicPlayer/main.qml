@@ -50,6 +50,11 @@ Window {
             header: ToolBar {
                 id: toolBar
                 width: stack.width
+
+                background: Rectangle {
+                    implicitHeight: 40
+                    color: "#6495ED"
+                }
                 RowLayout {
                     anchors.fill: parent
                     Label {
@@ -60,9 +65,10 @@ Window {
                         Layout.fillWidth: true
                     }
                     Image {
+                        Layout.rightMargin: 10
                         Layout.preferredWidth: 32
                         Layout.preferredHeight: 32
-                        source: "settings_64x64.png"
+                        source: "settings-white_64x64.png"
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
