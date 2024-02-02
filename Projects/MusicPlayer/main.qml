@@ -28,6 +28,22 @@ Window {
         anchors.fill: parent
     }
 
+    Dialog {
+        id: dialog
+        title: qsTr("申请存储权限")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+        anchors.centerIn: parent
+        Text {
+            text: qsTr("即将跳转权限申请页面...\n如果权限申请成功，重启后权限生效，立马重启？")
+        }
+        onAccepted: {
+            console.log('exit')
+            Qt.exit(0)
+        }
+
+        onRejected: {
+        }
+    }
     Component {
         id: mainView
         Page {
@@ -50,14 +66,19 @@ Window {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                var page = Qt.createComponent(
-                                            "FileListView.qml").createObject(
-                                            stack, {
-                                                "width": stack.width,
-                                                "height": stack.height,
-                                                "path": $FileSystem.defaultPath()
-                                            })
-                                stack.push(page)
+                                if ($Controller.requestStoragePermission()) {
+                                    var page = Qt.createComponent(
+                                                "FileListView.qml").createObject(
+                                                stack, {
+                                                    "width": stack.width,
+                                                    "height": stack.height,
+                                                    "path": $FileSystem.defaultPath()
+                                                })
+                                    stack.push(page)
+                                }
+                                else {
+                                    dialog.visible = true
+                                }
                             }
                         }
 

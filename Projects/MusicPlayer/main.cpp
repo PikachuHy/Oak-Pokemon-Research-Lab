@@ -32,19 +32,17 @@ int main(int argc, char *argv[]) {
   engine.rootContext()->setContextProperty("$FileSystem", new FileSystem());
   auto keyFilter = new KeyFilter();
   engine.rootContext()->setContextProperty("$KeyFilter", keyFilter);
-  const QUrl url(u"qrc:/MyMusic/main.qml"_qs);
   QObject::connect(
       &engine, &QQmlApplicationEngine::objectCreated, &app,
-      [url, keyFilter](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl) {
-          qCritical() << "load error:" << url;
-          QCoreApplication::exit(-1);
+      [keyFilter](QObject *obj, const QUrl &objUrl) {
+        if (!obj) {
+          qCritical() << "load error:" << objUrl;
         }
         // 拦截安卓返回键
         keyFilter->setFilter(obj);
       },
       Qt::QueuedConnection);
-  engine.load(url);
+  engine.loadFromModule("MyMusic", "Main");
 
   return app.exec();
 }

@@ -13,6 +13,8 @@ class Controller : public QObject {
 
   Q_INVOKABLE bool isDesktop();
   Q_INVOKABLE bool isMobile();
+
+  Q_INVOKABLE bool requestStoragePermission();
  signals:
 };
 

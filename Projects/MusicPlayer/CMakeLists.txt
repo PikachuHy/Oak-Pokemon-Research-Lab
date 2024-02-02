@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(MyMusic VERSION 1.1.0 LANGUAGES CXX)
+project(MyMusic VERSION 1.2.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING
@@ -21,57 +19,57 @@ if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
         set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/MyNotes.app/Contents/PlugIns)
     endif ()
 endif ()
-set(CMAKE_AUTOMOC ON)
-find_package(Qt6 COMPONENTS Quick QuickControls2 REQUIRED)
+
+find_package(Qt6 6.7 REQUIRED COMPONENTS Quick Multimedia)
+
+qt_standard_project_setup(REQUIRES 6.7)
 
 qt_add_executable(MyMusic
-        MANUAL_FINALIZATION
-        main.cpp
-        KeyFilter.cpp
-        FileSystem.cpp
-        Controller.cpp
-        Settings.cpp
-        )
+    main.cpp
+    KeyFilter.cpp
+    FileSystem.cpp
+    Controller.cpp
+    Settings.cpp
+)
 
 qt_add_qml_module(MyMusic
-        URI MyMusic
-        VERSION 1.0
+    URI MyMusic
+    VERSION 1.0
+    QML_FILES Main.qml
+    QML_FILES FileListView.qml
+    QML_FILES MusicPlayer.qml
+    QML_FILES NoteListItem.qml
+    QML_FILES MusicLyrics.qml
+    RESOURCES disk_600x600.jpeg
+    RESOURCES settings_64x64.png
+    RESOURCES left-circle_64x64.png
+    RESOURCES right-circle_64x64.png
+    RESOURCES play-circle_64x64.png
+    RESOURCES pause-circle_64x64.png
+    RESOURCES note_64x64.png
+    RESOURCES folder_64x64.png
+    RESOURCES check_64x64.png
+)
 
-        QML_FILES
-        main.qml
-        MusicPlayer.qml
-        FileListView.qml
-        NoteListItem.qml
-        MusicLyrics.qml
-
-        RESOURCES
-        settings_64x64.png
-        music_128x128.png
-        note_64x64.png
-        left-circle_64x64.png
-        pause-circle_64x64.png
-        play-circle_64x64.png
-        check_64x64.png
-        music_64x64.png
-        folder_64x64.png
-        right-circle_64x64.png
-        disk_600x600.jpeg
-        )
-
+# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
+# If you are developing for iOS or macOS you should consider setting an
+# explicit, fixed bundle identifier manually though.
 set_target_properties(MyMusic PROPERTIES
-        MACOSX_BUNDLE_GUI_IDENTIFIER cn.net.pikachu
-        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-        MACOSX_BUNDLE TRUE
-        WIN32_EXECUTABLE TRUE
-        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
-        )
+    MACOSX_BUNDLE_GUI_IDENTIFIER cn.net.pikachu.MyMusic
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+    QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
+)
 
 target_link_libraries(MyMusic
-        PRIVATE Qt6::Quick Qt6::QuickControls2)
+    PRIVATE Qt6::Quick Qt6::Multimedia
+)
 
+include(GNUInstallDirs)
 install(TARGETS MyMusic
-        BUNDLE DESTINATION .
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-qt_finalize_target(MyMusic)
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
